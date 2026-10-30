@@ -10,3 +10,5 @@ addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.6.2")
 addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.7.0")
 
 addSbtPlugin("uk.gov.hmrc" % "sbt-test-report" % "1.12.0")
+
+addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.14.6")
