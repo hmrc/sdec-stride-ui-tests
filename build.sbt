@@ -15,7 +15,7 @@ lazy val root = (project in file("."))
   )
 
 // @formatter:off
-addCommandAlias("prePrChecks", "; scalafmtCheckAll; scalafmtSbtCheck; scalafixAll --check; --check")
+addCommandAlias("prePrChecks", "; scalafmtCheckAll; scalafmtSbtCheck; scalafixAll --check")
 addCommandAlias("lint", "; scalafmtAll; scalafmtSbt; scalafixAll")
 addCommandAlias("prePush", "; reload; clean; compile; test; it/test; lint;")
 // @formatter:on
