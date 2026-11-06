@@ -7,6 +7,13 @@ ENVIRONMENT=${2:-local}
 HEADLESSFLAG=${3:-false}
 PREVIOUSVERSIONFLAG=${4:-true}
 
+SBT_PROPS=(
+  "-Dbrowser=$BROWSER"
+  "-Denvironment=$ENVIRONMENT"
+  "-Dbrowser.option.headless=$HEADLESSFLAG"
+  "-Dbrowser.usePreviousVersion=$PREVIOUSVERSIONFLAG"
+)
+
 run_pre_pr_checks() {
   echo "==> Running pre-PR checks"
 
