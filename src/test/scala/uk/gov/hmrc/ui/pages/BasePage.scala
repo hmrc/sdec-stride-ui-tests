@@ -27,7 +27,6 @@ import scala.jdk.CollectionConverters.*
 
 trait BasePage extends BrowserDriver with Matchers with PageObject {
 
-
   def navigateTo(url: String): Unit =
     Driver.instance.navigate().to(url)
 

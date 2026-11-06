@@ -24,12 +24,13 @@ import uk.gov.hmrc.ui.specs.tags.{AcceptanceTests, SoloTests}
 class CreateThreadSpec extends BaseSpec {
   Feature("Internal User Journey - Create Thread page") {
 
-    Scenario("Create Thread Button is visible and must be selectable", AcceptanceTests) {
+    Scenario("Workspace page with Create Thread Button is visible and selectable", AcceptanceTests) {
 
       Given("User Logins with Credential ID")
       AuthLoginPage.navigateToAuthPage()
 
-      When("""the User views a "Create thread" button """)
+      When("""the User views Workspace Navigation page a "Create thread" button is displayed""")
+      CreateThreadPage.getWorkspaceHeading           shouldBe "Workspace"
       CreateThreadPage.isCreateThreadButtonDisplayed shouldBe true
 
       And("the button must be selectable")

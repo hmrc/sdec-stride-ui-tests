@@ -24,9 +24,13 @@ import scala.jdk.CollectionConverters.*
 object CreateThreadPage extends BasePage {
 
   val createThreadButtonLocator: By = By.cssSelector("a.govuk-button[role=\"button\"]")
+  val workspaceHeadingLocator:   By = By.cssSelector("h1.govuk-heading-xl")
 
   def getCreateThreadButton: WebElement =
     webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(createThreadButtonLocator))
+
+  def getWorkspaceHeading: String =
+    webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(workspaceHeadingLocator)).getText.trim
 
   def isCreateThreadButtonDisplayed: Boolean =
     driver.findElements(createThreadButtonLocator).asScala.nonEmpty &&
