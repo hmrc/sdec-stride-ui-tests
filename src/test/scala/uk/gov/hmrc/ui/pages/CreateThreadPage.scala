@@ -18,10 +18,11 @@ package uk.gov.hmrc.ui.pages
 
 import org.openqa.selenium.support.ui.ExpectedConditions
 import org.openqa.selenium.{By, JavascriptExecutor, WebElement}
+import uk.gov.hmrc.ui.driver.BrowserDriver
 
 import scala.jdk.CollectionConverters.*
 
-object CreateThreadPage extends BasePage {
+object CreateThreadPage extends BrowserDriver with BasePage {
 
   val createThreadButtonLocator: By = By.cssSelector("a.govuk-button[role=\"button\"]")
   val workspaceHeadingLocator:   By = By.cssSelector("h1.govuk-heading-xl")
