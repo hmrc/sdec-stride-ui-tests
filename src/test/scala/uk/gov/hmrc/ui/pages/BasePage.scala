@@ -16,6 +16,27 @@
 
 package uk.gov.hmrc.ui.pages
 
+import org.openqa.selenium.support.ui.{ExpectedConditions, WebDriverWait}
+import org.openqa.selenium.{By, JavascriptExecutor}
+import org.scalatest.matchers.should.Matchers
 import uk.gov.hmrc.selenium.component.PageObject
+import uk.gov.hmrc.selenium.webdriver.Driver
+import uk.gov.hmrc.ui.driver.BrowserDriver
+import java.time.Duration
+import scala.jdk.CollectionConverters.*
 
-trait BasePage extends PageObject {}
+trait BasePage extends BrowserDriver with Matchers with PageObject {
+
+  def navigateTo(url: String): Unit =
+    Driver.instance.navigate().to(url)
+
+  def assertLocatorPresent(locator: By): Unit = {
+    val elements = Driver.instance.findElements(locator).asScala
+    require(
+      elements.nonEmpty,
+      s"Expected element with locator [$locator] to be present, but none was found"
+    )
+  }
+
+  def webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(15))
+}
