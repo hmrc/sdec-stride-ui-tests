@@ -16,34 +16,19 @@
 
 package uk.gov.hmrc.ui.pages
 
-import org.openqa.selenium.support.ui.ExpectedConditions
 import org.openqa.selenium.{By, WebElement}
 import uk.gov.hmrc.ui.driver.BrowserDriver
 
-import scala.jdk.CollectionConverters.*
-
 object CreateThreadPage extends BrowserDriver with BasePage {
 
-  val createThreadButtonLocator: By = By.cssSelector("a.govuk-button[role=\"button\"]")
+  val createThreadButtonLocator: By = By.cssSelector("a.govuk-button[href*=\"create-thread\"]")
   val workspaceHeadingLocator:   By = By.cssSelector("h1.govuk-heading-xl")
 
-  def getCreateThreadButton: WebElement =
-    webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(createThreadButtonLocator))
-
-  def getWorkspaceHeading: String =
-    webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(workspaceHeadingLocator)).getText.trim
-
-  def isCreateThreadButtonDisplayed: Boolean =
-    driver.findElements(createThreadButtonLocator).asScala.nonEmpty &&
-      getCreateThreadButton.isDisplayed
-
-  def isCreateThreadButtonEnabled: Boolean =
-    getCreateThreadButton.isEnabled
-
-  def getThreadButtonText: String =
-    getCreateThreadButton.getText.trim
-
-  def selectCreateThreadButton(): Unit =
-    getCreateThreadButton.click()
+  def getCreateThreadButton:         WebElement = getElement(createThreadButtonLocator)
+  def getWorkspaceHeading:           String     = getTitleText(workspaceHeadingLocator)
+  def isCreateThreadButtonDisplayed: Boolean    = isElementDisplayed(createThreadButtonLocator)
+  def isCreateThreadButtonEnabled:   Boolean    = isElementEnabled(createThreadButtonLocator)
+  def getThreadButtonText:           String     = getTitleText(createThreadButtonLocator)
+  def selectCreateThreadButton():    Unit       = click(createThreadButtonLocator)
 
 }

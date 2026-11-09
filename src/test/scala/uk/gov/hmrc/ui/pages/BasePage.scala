@@ -16,8 +16,10 @@
 
 package uk.gov.hmrc.ui.pages
 
-import org.openqa.selenium.By
-import org.openqa.selenium.support.ui.WebDriverWait
+import com.typesafe.scalalogging.LazyLogging
+import org.openqa.selenium.support.ui.{ExpectedConditions, WebDriverWait}
+import org.openqa.selenium.{By, WebElement}
+import org.scalatest.concurrent.Eventually
 import org.scalatest.matchers.should.Matchers
 import uk.gov.hmrc.selenium.component.PageObject
 import uk.gov.hmrc.selenium.webdriver.Driver
@@ -26,10 +28,30 @@ import uk.gov.hmrc.ui.driver.BrowserDriver
 import java.time.Duration
 import scala.jdk.CollectionConverters.*
 
-trait BasePage extends BrowserDriver with Matchers with PageObject {
+trait BasePage extends PageObject with Eventually with Matchers with LazyLogging with BrowserDriver {
+
+  implicit def w: WebDriverWait = new WebDriverWait(driver, Duration.ofSeconds(30))
+
+  logger.info {
+    s"Instantiating Browser: ${sys.props.getOrElse("browser", "'browser' System property not set. This is required")}"
+  }
 
   def navigateTo(url: String): Unit =
     Driver.instance.navigate().to(url)
+
+  def getElement(locator: By): WebElement =
+    w.until(ExpectedConditions.visibilityOfElementLocated(locator))
+
+  def getTitleText(locator: By): String =
+    getElement(locator).getText.trim
+
+  def isElementDisplayed(locator: By): Boolean =
+    driver.findElements(locator).asScala.nonEmpty &&
+      getElement(locator).isDisplayed
+
+  def isElementEnabled(locator: By): Boolean =
+    driver.findElements(locator).asScala.nonEmpty &&
+      getElement(locator).isEnabled
 
   def assertLocatorPresent(locator: By): Unit = {
     val elements = Driver.instance.findElements(locator).asScala
@@ -39,5 +61,14 @@ trait BasePage extends BrowserDriver with Matchers with PageObject {
     )
   }
 
-  def webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(15))
+  def clear(locator: By): Unit = {
+    val element = w.until(ExpectedConditions.elementToBeClickable(locator))
+    element.clear()
+  }
+
+  override def click(locator: By): Unit = {
+    val element = w.until(ExpectedConditions.elementToBeClickable(locator))
+    element.click()
+  }
+
 }
