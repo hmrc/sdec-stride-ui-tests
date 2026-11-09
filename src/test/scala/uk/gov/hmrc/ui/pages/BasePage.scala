@@ -16,12 +16,13 @@
 
 package uk.gov.hmrc.ui.pages
 
-import org.openqa.selenium.support.ui.{ExpectedConditions, WebDriverWait}
-import org.openqa.selenium.{By, JavascriptExecutor}
+import org.openqa.selenium.By
+import org.openqa.selenium.support.ui.WebDriverWait
 import org.scalatest.matchers.should.Matchers
 import uk.gov.hmrc.selenium.component.PageObject
 import uk.gov.hmrc.selenium.webdriver.Driver
 import uk.gov.hmrc.ui.driver.BrowserDriver
+
 import java.time.Duration
 import scala.jdk.CollectionConverters.*
 

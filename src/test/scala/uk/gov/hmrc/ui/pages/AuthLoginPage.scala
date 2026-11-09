@@ -15,9 +15,6 @@
  */
 
 package uk.gov.hmrc.ui.pages
-
-import org.openqa.selenium.support.ui.ExpectedConditions
-import org.openqa.selenium.{By, JavascriptExecutor, WebElement}
 import uk.gov.hmrc.ui.conf.TestConfiguration
 import uk.gov.hmrc.ui.driver.BrowserDriver
 

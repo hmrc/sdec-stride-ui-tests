@@ -17,9 +17,8 @@
 package uk.gov.hmrc.ui.specs
 
 import org.scalatest.featurespec.AnyFeatureSpec
-import org.scalatest.prop.TableDrivenPropertyChecks
 import uk.gov.hmrc.ui.pages.{AuthLoginPage, CreateThreadPage}
-import uk.gov.hmrc.ui.specs.tags.{AcceptanceTests, SoloTests}
+import uk.gov.hmrc.ui.specs.tags.AcceptanceTests
 
 class CreateThreadSpec extends BaseSpec {
   Feature("Internal User Journey - Create Thread page") {
