@@ -53,9 +53,4 @@ fi
 
 
 # ---- Main acceptance run  ----
-sbt scalafmtCheckAll scalafmtSbtCheck clean compile \
-  -Dbrowser="$BROWSER" \
-  -Denvironment="$ENVIRONMENT" \
-  -Dbrowser.option.headless="$HEADLESSFLAG" \
-  -Dbrowser.usePreviousVersion="$PREVIOUSVERSIONFLAG" \
-  "testOnly uk.gov.hmrc.ui.specs.* -- -n AcceptanceTests" testReport
+sbt scalafmtCheckAll scalafmtSbtCheck clean compile -Dbrowser="$BROWSER" -Denvironment="$ENVIRONMENT" -Dbrowser.option.headless="$HEADLESSFLAG" -Dbrowser.usePreviousVersion="$PREVIOUSVERSIONFLAG" "testOnly uk.gov.hmrc.ui.specs.* -- -n AcceptanceTests" testReport
