@@ -37,7 +37,7 @@ class CreateThreadSpec extends BaseSpec {
       CreateThreadPage.isCreateThreadButtonEnabled shouldBe true
 
       And("the button must follow GOV.UK Design System standards")
-      CreateThreadPage.getThreadButtonText should include("Create New Thread")
+      CreateThreadPage.getThreadButtonText should include("Create new thread")
 
       Then("the User clicks on the create thread button it should navigate to the create new thread page")
       CreateThreadPage.selectCreateThreadButton()
