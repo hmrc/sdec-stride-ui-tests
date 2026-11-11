@@ -22,9 +22,8 @@ object AuthLoginPage extends BrowserDriver with BasePage {
 
   val url: String = TestConfiguration.url("sdec-stride-frontend")
 
-  def navigateToAuthPage(): Unit = {
+  def navigateToServicePage(): Unit = {
     driver.manage().deleteAllCookies()
     navigateTo(url)
-
   }
 }

@@ -25,10 +25,10 @@ object CreateThreadPage extends BrowserDriver with BasePage {
   val workspaceHeadingLocator:   By = By.cssSelector("h1.govuk-heading-xl")
 
   def getCreateThreadButton:         WebElement = getElement(createThreadButtonLocator)
-  def getWorkspaceHeading:           String     = getTitleText(workspaceHeadingLocator)
+  def getWorkspaceHeading:           String     = getText(workspaceHeadingLocator)
   def isCreateThreadButtonDisplayed: Boolean    = isElementDisplayed(createThreadButtonLocator)
   def isCreateThreadButtonEnabled:   Boolean    = isElementEnabled(createThreadButtonLocator)
-  def getThreadButtonText:           String     = getTitleText(createThreadButtonLocator)
-  def selectCreateThreadButton():    Unit       = click(createThreadButtonLocator)
+  def getCreateThreadButtonText:     String     = getText(createThreadButtonLocator)
+  def clickCreateThreadButton():     Unit       = click(createThreadButtonLocator)
 
 }

@@ -16,11 +16,8 @@
 
 package uk.gov.hmrc.ui.pages
 
-import com.typesafe.scalalogging.LazyLogging
-import org.openqa.selenium.support.ui.{ExpectedConditions, WebDriverWait}
-import org.openqa.selenium.{By, WebElement}
-import org.scalatest.concurrent.Eventually
-import org.scalatest.matchers.should.Matchers
+import org.openqa.selenium.support.ui.{ExpectedConditions, FluentWait, Wait}
+import org.openqa.selenium.{By, WebDriver, WebElement}
 import uk.gov.hmrc.selenium.component.PageObject
 import uk.gov.hmrc.selenium.webdriver.Driver
 import uk.gov.hmrc.ui.driver.BrowserDriver
@@ -28,22 +25,17 @@ import uk.gov.hmrc.ui.driver.BrowserDriver
 import java.time.Duration
 import scala.jdk.CollectionConverters.*
 
-trait BasePage extends PageObject with Eventually with Matchers with LazyLogging with BrowserDriver {
+trait BasePage extends PageObject with BrowserDriver {
 
-  implicit def w: WebDriverWait = new WebDriverWait(driver, Duration.ofSeconds(30))
-
-  logger.info {
-    s"Instantiating Browser: ${sys.props.getOrElse("browser", "'browser' System property not set. This is required")}"
-  }
+  def fluentWait: Wait[WebDriver] = new FluentWait[WebDriver](Driver.instance)
+    .withTimeout(Duration.ofSeconds(5))
+    .pollingEvery(Duration.ofSeconds(1))
 
   def navigateTo(url: String): Unit =
     Driver.instance.navigate().to(url)
 
   def getElement(locator: By): WebElement =
-    w.until(ExpectedConditions.visibilityOfElementLocated(locator))
-
-  def getTitleText(locator: By): String =
-    getElement(locator).getText.trim
+    fluentWait.until(ExpectedConditions.visibilityOfElementLocated(locator))
 
   def isElementDisplayed(locator: By): Boolean =
     driver.findElements(locator).asScala.nonEmpty &&
@@ -62,12 +54,12 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
   }
 
   def clear(locator: By): Unit = {
-    val element = w.until(ExpectedConditions.elementToBeClickable(locator))
+    val element = fluentWait.until(ExpectedConditions.elementToBeClickable(locator))
     element.clear()
   }
 
   override def click(locator: By): Unit = {
-    val element = w.until(ExpectedConditions.elementToBeClickable(locator))
+    val element = fluentWait.until(ExpectedConditions.elementToBeClickable(locator))
     element.click()
   }
 
