@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
-ENVIRONMENT=$1
+BROWSER=${1:-chrome}
+ENVIRONMENT=${2:-local}
+HEADLESS=${3:-true}
 
-sbt clean prePrChecks -Denvironment="${ENVIRONMENT:=local}" "testOnly uk.gov.hmrc.api.specs.*" testReport
+sbt clean prePrChecks -Dbrowser="$BROWSER" -Denvironment="$ENVIRONMENT" -Dbrowser.option.headless="$HEADLESS" -Dsecurity.assessment=false "testOnly uk.gov.hmrc.ui.specs.* -- -n AcceptanceTests" testReport
