@@ -16,13 +16,16 @@
 
 package uk.gov.hmrc.ui.pages
 
+import org.openqa.selenium.support.ui.ExpectedConditions
 import org.openqa.selenium.{By, WebElement}
 import uk.gov.hmrc.ui.driver.BrowserDriver
 
 object CreateThreadPage extends BrowserDriver with BasePage {
 
-  val createThreadButtonLocator: By = By.cssSelector("a.govuk-button[href*=\"create-thread\"]")
-  val workspaceHeadingLocator:   By = By.cssSelector("h1.govuk-heading-xl")
+  val createThreadButtonLocator:      By = By.cssSelector("a.govuk-button[href*=\"create-thread\"]")
+  val workspaceHeadingLocator:        By = By.cssSelector("h1.govuk-heading-xl")
+  val recipientDetailsHeadingLocator: By = By.cssSelector("#main-content h1")
+  val continueButtonLocator:          By = By.cssSelector("#main-content a")
 
   def getCreateThreadButton:         WebElement = getElement(createThreadButtonLocator)
   def getWorkspaceHeading:           String     = getText(workspaceHeadingLocator)
@@ -30,5 +33,15 @@ object CreateThreadPage extends BrowserDriver with BasePage {
   def isCreateThreadButtonEnabled:   Boolean    = isElementEnabled(createThreadButtonLocator)
   def getCreateThreadButtonText:     String     = getText(createThreadButtonLocator)
   def clickCreateThreadButton():     Unit       = click(createThreadButtonLocator)
+
+  def getRecipientDetailsHeadingText(): String = {
+    fluentWait.until(ExpectedConditions.presenceOfElementLocated(recipientDetailsHeadingLocator))
+    getText(recipientDetailsHeadingLocator)
+  }
+
+  def clickContinueButton(): Unit = {
+    fluentWait.until(ExpectedConditions.presenceOfElementLocated(continueButtonLocator))
+    click(continueButtonLocator)
+  }
 
 }
