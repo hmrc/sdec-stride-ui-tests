@@ -22,6 +22,12 @@ sm2 --start <SERVICE_MANAGER_PROFILE>
 
 ## Tests
 
+Make sure that the following JVM Options are added to the run configuration's VM Option sections:
+```
+-Dbrowser=chrome -Denvironment=local -Dbrowser.option.headless=false
+```
+Then, you can run these tests in IntelliJ and verify executions in browser
+
 Run tests as follows:
 
 * Argument `<browser>` must be `chrome`, `edge`, or `firefox`.

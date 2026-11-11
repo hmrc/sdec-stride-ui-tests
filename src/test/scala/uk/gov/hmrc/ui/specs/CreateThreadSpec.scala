@@ -40,6 +40,28 @@ class CreateThreadSpec extends BaseSpec {
       CreateThreadPage.clickCreateThreadButton()
 
     }
+
+    Scenario("Recipient details page is visible and selectable", AcceptanceTests) {
+
+      Given("Navigation to service page")
+      AuthLoginPage.navigateToServicePage()
+
+      When("the User views Workspace Navigation page a Create thread button is displayed")
+      CreateThreadPage.getWorkspaceHeading           shouldBe "Workspace"
+      CreateThreadPage.isCreateThreadButtonDisplayed shouldBe true
+
+      And("the button must be selectable")
+      CreateThreadPage.isCreateThreadButtonEnabled shouldBe true
+      CreateThreadPage.getCreateThreadButtonText   shouldBe "Create new thread"
+
+      Then("the User clicks on the create thread button and the User navigates to the Recipient details pag")
+      CreateThreadPage.clickCreateThreadButton()
+      CreateThreadPage.getRecipientDetailsHeadingText() shouldBe "Recipient Details"
+
+      And("the User clicks on continue button and navigates to next page")
+      CreateThreadPage.clickContinueButton()
+
+    }
   }
 
 }
