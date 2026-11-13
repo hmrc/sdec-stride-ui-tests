@@ -139,6 +139,32 @@ class CreateThreadSpec extends BaseSpec {
       CreateThreadPage.clickSubmitButton()
     }
 
+    Scenario("the user navigates to what do you want to do page and clicks the back link ", AcceptanceTests) {
+
+      Given("Navigation to service page")
+      AuthLoginPage.navigateToServicePage()
+
+      And("the User views Workspace Navigation page a Create thread button is displayed")
+      CreateThreadPage.getWorkspaceHeading           shouldBe "Workspace"
+      CreateThreadPage.isCreateThreadButtonDisplayed shouldBe true
+
+      And("the button must be selectable")
+      CreateThreadPage.isCreateThreadButtonEnabled shouldBe true
+      CreateThreadPage.getCreateThreadButtonText   shouldBe "Create new thread"
+
+      When("the User clicks on the create thread button and the User navigates to the Recipient details pag")
+      CreateThreadPage.clickCreateThreadButton()
+      CreateThreadPage.getRecipientDetailsHeadingText shouldBe "Recipient Details"
+
+      Then("the User clicks on continue button and navigates to What do you want page ")
+      CreateThreadPage.clickContinueButton()
+      CreateThreadPage.getWhatDoYouWantToDoHeading shouldBe "What do you want to do?"
+
+      And("the user clicks on back Link button and navigates to recipient details page")
+      CreateThreadPage.clickBackLink()
+      CreateThreadPage.getRecipientDetailsHeadingText shouldBe "Recipient Details"
+    }
+
     Scenario("User clicks Submit button in what do you want to do page without selecting options ", AcceptanceTests) {
 
       Given("Navigation to service page")
@@ -166,5 +192,6 @@ class CreateThreadSpec extends BaseSpec {
       CreateThreadPage.getErrorResponseWhenNoRadioButtonClicked
 
     }
+
   }
 }
