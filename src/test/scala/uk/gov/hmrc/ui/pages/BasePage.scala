@@ -17,7 +17,7 @@
 package uk.gov.hmrc.ui.pages
 
 import org.openqa.selenium.support.ui.{ExpectedConditions, FluentWait, Wait}
-import org.openqa.selenium.{By, WebDriver, WebElement}
+import org.openqa.selenium.{By, JavascriptExecutor, WebDriver, WebElement}
 import uk.gov.hmrc.selenium.component.PageObject
 import uk.gov.hmrc.selenium.webdriver.Driver
 import uk.gov.hmrc.ui.driver.BrowserDriver
@@ -61,6 +61,25 @@ trait BasePage extends PageObject with BrowserDriver {
   override def click(locator: By): Unit = {
     val element = fluentWait.until(ExpectedConditions.elementToBeClickable(locator))
     element.click()
+  }
+
+  /** Radio button interaction */
+
+  def clickRadioButton(locator: By): Unit = {
+    val radioElement = fluentWait.until(
+      ExpectedConditions.presenceOfElementLocated(locator)
+    )
+
+    val jsExecutor = driver.asInstanceOf[JavascriptExecutor]
+    jsExecutor.executeScript("arguments[0].scrollIntoView(true);", radioElement)
+
+    try
+      radioElement.click()
+    catch {
+      case _: Exception =>
+        jsExecutor.executeScript("arguments[0].click();", radioElement)
+    }
+
   }
 
 }
