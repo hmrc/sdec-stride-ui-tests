@@ -56,7 +56,7 @@ class CreateThreadSpec extends BaseSpec {
 
       Then("the User clicks on the create thread button and the User navigates to the Recipient details pag")
       CreateThreadPage.clickCreateThreadButton()
-      CreateThreadPage.getRecipientDetailsHeadingText shouldBe "Recipient Details"
+      CreateThreadPage.getRecipientDetailsHeadingText shouldBe "Recipient details"
 
       And("the User clicks on continue button and navigates to next page")
       CreateThreadPage.clickContinueButton()
@@ -78,7 +78,7 @@ class CreateThreadSpec extends BaseSpec {
 
       When("the User clicks on the create thread button and the User navigates to the Recipient details pag")
       CreateThreadPage.clickCreateThreadButton()
-      CreateThreadPage.getRecipientDetailsHeadingText shouldBe "Recipient Details"
+      CreateThreadPage.getRecipientDetailsHeadingText shouldBe "Recipient details"
 
       Then("the User clicks on continue button and navigates to What do you want page ")
       CreateThreadPage.clickContinueButton()
@@ -104,7 +104,7 @@ class CreateThreadSpec extends BaseSpec {
 
       When("the User clicks on the create thread button and the User navigates to the Recipient details pag")
       CreateThreadPage.clickCreateThreadButton()
-      CreateThreadPage.getRecipientDetailsHeadingText shouldBe "Recipient Details"
+      CreateThreadPage.getRecipientDetailsHeadingText shouldBe "Recipient details"
 
       Then("the User clicks on continue button and navigates to What do you want page ")
       CreateThreadPage.clickContinueButton()
@@ -129,7 +129,7 @@ class CreateThreadSpec extends BaseSpec {
 
       When("the User clicks on the create thread button and the User navigates to the Recipient details pag")
       CreateThreadPage.clickCreateThreadButton()
-      CreateThreadPage.getRecipientDetailsHeadingText shouldBe "Recipient Details"
+      CreateThreadPage.getRecipientDetailsHeadingText shouldBe "Recipient details"
 
       Then("the User clicks on continue button and navigates to What do you want page ")
       CreateThreadPage.clickContinueButton()
@@ -154,7 +154,7 @@ class CreateThreadSpec extends BaseSpec {
 
       When("the User clicks on the create thread button and the User navigates to the Recipient details pag")
       CreateThreadPage.clickCreateThreadButton()
-      CreateThreadPage.getRecipientDetailsHeadingText shouldBe "Recipient Details"
+      CreateThreadPage.getRecipientDetailsHeadingText shouldBe "Recipient details"
 
       Then("the User clicks on continue button and navigates to What do you want page ")
       CreateThreadPage.clickContinueButton()
@@ -162,7 +162,7 @@ class CreateThreadSpec extends BaseSpec {
 
       And("the user clicks on back Link button and navigates to recipient details page")
       CreateThreadPage.clickBackLink()
-      CreateThreadPage.getRecipientDetailsHeadingText shouldBe "Recipient Details"
+      CreateThreadPage.getRecipientDetailsHeadingText shouldBe "Recipient details"
     }
 
     Scenario("User clicks Submit button in what do you want to do page without selecting options ", AcceptanceTests) {
@@ -180,7 +180,7 @@ class CreateThreadSpec extends BaseSpec {
 
       When("the User clicks on the create thread button and the User navigates to the Recipient details pag")
       CreateThreadPage.clickCreateThreadButton()
-      CreateThreadPage.getRecipientDetailsHeadingText shouldBe "Recipient Details"
+      CreateThreadPage.getRecipientDetailsHeadingText shouldBe "Recipient details"
 
       And("the User clicks on continue button and navigates to What do you want page ")
       CreateThreadPage.clickContinueButton()
