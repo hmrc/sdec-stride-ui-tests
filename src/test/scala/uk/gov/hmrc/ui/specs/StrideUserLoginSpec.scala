@@ -22,7 +22,7 @@ import org.scalatest.prop.Tables.Table
 import uk.gov.hmrc.ui.pages.AuthLoginPage.{assertOnPage, navigateToPage}
 import uk.gov.hmrc.ui.pages.*
 
-class StrideUserLoginSpec1 extends BaseSpec {
+class StrideUserLoginSpec extends BaseSpec {
 
   private val pid = "12345"
   private val givenName = "TestGivenName"
@@ -83,7 +83,7 @@ class StrideUserLoginSpec1 extends BaseSpec {
 
         Then("Stride user navigates to Insufficient Role page")
         StrideUserLoginPage.clickSubmitButton()
-        assertOnPage(WorkspacePage)
+        assertOnPage(InsufficientRolePage)
       }
     }
   }
