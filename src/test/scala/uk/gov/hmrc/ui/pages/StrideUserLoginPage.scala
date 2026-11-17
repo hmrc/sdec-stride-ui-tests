@@ -24,7 +24,7 @@ import uk.gov.hmrc.ui.driver.BrowserDriver
 object StrideUserLoginPage extends BrowserDriver with BasePage with StaticUrl with StaticTitle {
 
   override val pageTitle: String = "Stride IdP Login"
-  override val pageUrl:   String = TestConfiguration.url("sdec-stride-frontend")
+  override val pageUrl:   String = TestConfiguration.url("stride-idp-stub/auth-request")
 
   given WebDriver = Driver.instance
 
