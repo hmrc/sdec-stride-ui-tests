@@ -28,7 +28,8 @@ import scala.jdk.DurationConverters.*
 object StrideUserLoginPage extends BrowserDriver with BasePage with StaticUrl with StaticTitle {
 
   override val pageTitle: String = "Stride IdP Login"
-  override val pageUrl:   String = TestConfiguration.url("stride-idp-stub")
+  override val pageUrl:   String = TestConfiguration.url("sdec-stride-frontend")
+  val strideLoginPageUrl: String = TestConfiguration.url("stride-idp-stub")
 
   val pidTextBox:                       By = By.xpath("//input[@id='pid']")
   val giveNameTextBox:                  By = By.xpath("//input[@id='usersGivenName']")

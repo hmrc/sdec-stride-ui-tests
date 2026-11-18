@@ -20,7 +20,7 @@ import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.prop.TableDrivenPropertyChecks.forAll
 import org.scalatest.prop.Tables.Table
 import uk.gov.hmrc.ui.pages.*
-import uk.gov.hmrc.ui.pages.AuthLoginPage.{assertOnPage, navigateToPage}
+import uk.gov.hmrc.ui.pages.AuthLoginPage.{assertOnPage, assertOnUrl, navigateToPage}
 import uk.gov.hmrc.ui.specs.tags.AcceptanceTests
 class StrideUserLoginSpec extends BaseSpec {
 
@@ -36,7 +36,7 @@ class StrideUserLoginSpec extends BaseSpec {
 
   private def givenStrideUserEntersIdentityDetails(): Unit = {
     Given("Stride user is on 'Stride Identity Provider Login Page'")
-    // assertOnPage(StrideUserLoginPage)
+    assertOnUrl(StrideUserLoginPage.strideLoginPageUrl, StrideUserLoginPage.pageTitle)
 
     And(s"Stride user enters valid identity details where name is $givenName $surName ($email)")
     StrideUserLoginPage.enterIdentityDetails(pid, givenName, surName, email)

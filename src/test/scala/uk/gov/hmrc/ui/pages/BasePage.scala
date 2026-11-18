@@ -23,6 +23,7 @@ import uk.gov.hmrc.selenium.component.PageObject
 import uk.gov.hmrc.selenium.webdriver.Driver
 import uk.gov.hmrc.ui.driver.BrowserDriver
 import java.time.Duration
+import java.util.regex.Pattern
 import scala.jdk.CollectionConverters.*
 
 trait BasePage extends PageObject with BrowserDriver {
@@ -111,7 +112,10 @@ trait BasePage extends PageObject with BrowserDriver {
   }
 
   def assertUrl(url: String): Unit =
-    fluentWait.until(ExpectedConditions.urlToBe(url))
+    fluentWait.until(ExpectedConditions.urlMatches(s"^${Pattern.quote(url)}.*"))
+
+  def assertOnUrl(url: String, title: String): Unit =
+    assertOnPage(url, title)
 
   def assertPageTitle(expectedTitle: String): Unit =
     fluentWait.until(ExpectedConditions.titleIs(expectedTitle))
