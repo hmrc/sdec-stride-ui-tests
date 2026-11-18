@@ -16,13 +16,20 @@
 
 package uk.gov.hmrc.ui.pages
 
+import org.openqa.selenium.By
 import uk.gov.hmrc.ui.conf.TestConfiguration
 import uk.gov.hmrc.ui.driver.BrowserDriver
 
 object InsufficientRolePage extends BrowserDriver with BasePage with StaticUrl with StaticTitle {
 
-  val pageTitle: String = "Secure Document Exchange - GOV.UK"
-  val pageUrl: String = TestConfiguration.url("")
+  override val pageUrl:   String = s"${TestConfiguration.url("sdec-stride-frontend")}/insufficient-roles"
+  override val pageTitle: String =
+    "Secure Document Exchange - sdec-stride-frontend - GOV.UK"
 
+  private val errorMessageLocator: By = By.cssSelector("p.govuk-body")
+
+  def verifyUnauthorisedMessage(expectedText: String): Unit = {
+    assertTextOnPage(errorMessageLocator, expectedText)
+  }
 
 }

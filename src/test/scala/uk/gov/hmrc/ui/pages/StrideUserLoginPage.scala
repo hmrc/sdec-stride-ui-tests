@@ -16,17 +16,19 @@
 
 package uk.gov.hmrc.ui.pages
 
-import org.openqa.selenium.{By, WebDriver}
+import org.openqa.selenium.support.ui.{ExpectedConditions, WebDriverWait}
+import org.openqa.selenium.{By, WebElement}
 import uk.gov.hmrc.selenium.webdriver.Driver
 import uk.gov.hmrc.ui.conf.TestConfiguration
 import uk.gov.hmrc.ui.driver.BrowserDriver
 
+import scala.concurrent.duration.DurationInt
+import scala.jdk.DurationConverters.*
+
 object StrideUserLoginPage extends BrowserDriver with BasePage with StaticUrl with StaticTitle {
 
   override val pageTitle: String = "Stride IdP Login"
-  override val pageUrl:   String = TestConfiguration.url("stride-idp-stub/auth-request")
-
-  given WebDriver = Driver.instance
+  override val pageUrl:   String = TestConfiguration.url("stride-idp-stub")
 
   val pidTextBox:                       By = By.xpath("//input[@id='pid']")
   val giveNameTextBox:                  By = By.xpath("//input[@id='usersGivenName']")
@@ -42,9 +44,18 @@ object StrideUserLoginPage extends BrowserDriver with BasePage with StaticUrl wi
   def clickSubmitButton(): Unit =
     clickElement(submitButton)
 
+  private def waitForVisibility(locator: By): WebElement =
+    new WebDriverWait(Driver.instance, 10.seconds.toJava)
+      .until(ExpectedConditions.visibilityOfElementLocated(locator))
+
+  private def waitClearAndEnter(locator: By, value: String): Unit = {
+    waitForVisibility(locator)
+    clearField(locator)
+    enterText(locator, value)
+  }
+
   def enterRole(role: String): Unit =
-    clearField(roleTextButton)
-    enterText(roleTextButton, role)
+    waitClearAndEnter(roleTextButton, role)
 
   def enterIdentityDetails(
     pid:       String,
@@ -52,13 +63,9 @@ object StrideUserLoginPage extends BrowserDriver with BasePage with StaticUrl wi
     surName:   String,
     email:     String
   ): Unit = {
-    clearField(pidTextBox)
-    enterText(pidTextBox, pid)
-    clearField(giveNameTextBox)
-    enterText(giveNameTextBox, givenName)
-    clearField(surNameTextBox)
-    enterText(surNameTextBox, surName)
-    clearField(emailAddressTextBox)
-    enterText(emailAddressTextBox, email)
+    waitClearAndEnter(pidTextBox, pid)
+    waitClearAndEnter(giveNameTextBox, givenName)
+    waitClearAndEnter(surNameTextBox, surName)
+    waitClearAndEnter(emailAddressTextBox, email)
   }
 }

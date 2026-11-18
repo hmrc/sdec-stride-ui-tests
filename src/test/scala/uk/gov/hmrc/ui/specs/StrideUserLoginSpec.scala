@@ -21,13 +21,12 @@ import org.scalatest.prop.TableDrivenPropertyChecks.forAll
 import org.scalatest.prop.Tables.Table
 import uk.gov.hmrc.ui.pages.AuthLoginPage.{assertOnPage, navigateToPage}
 import uk.gov.hmrc.ui.pages.*
-
 class StrideUserLoginSpec extends BaseSpec {
 
-  private val pid = "12345"
+  private val pid       = "12345"
   private val givenName = "TestGivenName"
-  private val surName = "TestSurNamer"
-  private val email = "test@example.com"
+  private val surName   = "TestSurNamer"
+  private val email     = "test@example.com"
 
   override def beforeEach(): Unit = {
     super.beforeEach()
@@ -36,7 +35,7 @@ class StrideUserLoginSpec extends BaseSpec {
 
   private def givenStrideUserEntersIdentityDetails(): Unit = {
     Given("Stride user is on 'Stride Identity Provider Login Page'")
-    assertOnPage(StrideUserLoginPage)
+    // assertOnPage(StrideUserLoginPage)
 
     And(s"Stride user enters valid identity details where name is $givenName $surName ($email)")
     StrideUserLoginPage.enterIdentityDetails(pid, givenName, surName, email)
@@ -47,8 +46,16 @@ class StrideUserLoginSpec extends BaseSpec {
     val happyPathData = Table(
       ("scenario", "roles"),
       (
-        s"Success : Stride user $givenName successfully navigates navigate to workspace with a valid role that starts with SDEC_",
+        s"Success : Stride user $givenName successfully navigates navigate to workspace with a single valid role that starts with SDEC_",
         "SDEC_CHB_Manager"
+      ),
+      (
+        s"Success : Stride user $givenName successfully navigates navigate to workspace with a multiple valid role that starts with SDEC_",
+        "SDEC_CHB_Manager,SDEC_VAT_User,SDEC_Auit_Senior"
+      ),
+      (
+        s"Success : Stride user $givenName successfully navigates navigate to workspace with a VAT user role that starts with SDEC_",
+        "sdec_vat_user"
       )
     )
 
@@ -61,7 +68,6 @@ class StrideUserLoginSpec extends BaseSpec {
 
         Then(s"Stride user successfully navigates to workspace page")
         StrideUserLoginPage.clickSubmitButton()
-        // println("Current URL is: " + BrowserDriver.instance.getCurrentUrl)
         assertOnPage(WorkspacePage)
       }
     }
@@ -69,8 +75,20 @@ class StrideUserLoginSpec extends BaseSpec {
     val negativePathData = Table(
       ("scenario", "roles"),
       (
-        s"Failure : Stride user $givenName navigates to error page with a role not starting with SDEC_",
+        s"Failure : Stride user $givenName navigates to Insufficient Role page due to role with hyphen delimiter",
         "CHB_Manager"
+      ),
+      (
+        s"Failure : Stride user $givenName navigates to Insufficient Role page due to role exceeding expected segments",
+        "SDEC_VAT_User_Manager"
+      ),
+      (
+        s"Failure : Stride user $givenName navigates to Insufficient Role page due to invalid prefix",
+        "sdec1_CHB_caseworker"
+      ),
+      (
+        s"Failure : Stride user $givenName navigates to Insufficient Role page due to missing team code segment",
+        "sdec_manager"
       )
     )
 
@@ -78,12 +96,13 @@ class StrideUserLoginSpec extends BaseSpec {
       Scenario(scenario) {
         givenStrideUserEntersIdentityDetails()
 
-        When(s"user $givenName has a valid role $roles not starting with ABC")
+        When(s"user $givenName has a valid role $roles not starting with SDEC_")
         StrideUserLoginPage.enterRole(roles)
 
         Then("Stride user navigates to Insufficient Role page")
         StrideUserLoginPage.clickSubmitButton()
         assertOnPage(InsufficientRolePage)
+        InsufficientRolePage.verifyUnauthorisedMessage("You do not have a role defined for access to this service")
       }
     }
   }

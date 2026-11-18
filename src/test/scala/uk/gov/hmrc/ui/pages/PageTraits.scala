@@ -40,23 +40,3 @@ trait StaticUrl {
   def pageUrl: String
   def loadPage(): Unit = navigateTo(pageUrl)
 }
-
-trait DynamicUrlWithKnownParam[A] {
-  this: BasePage =>
-
-  def pageUrl(param: A): String
-
-  def loadPage(param: A): Unit = navigateTo(pageUrl(param))
-}
-
-trait DynamicUrlWithUnknownParam[A] {
-  this: BasePage =>
-
-  protected def urlRegex: String
-
-  def extractParams: A
-
-  def assertUrl(): Unit =
-    fluentWait.until(ExpectedConditions.urlMatches(urlRegex))
-
-}

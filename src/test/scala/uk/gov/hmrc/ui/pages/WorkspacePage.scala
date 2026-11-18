@@ -22,7 +22,7 @@ import uk.gov.hmrc.ui.driver.BrowserDriver
 object WorkspacePage extends BrowserDriver with BasePage with StaticUrl with StaticTitle {
 
   val pageTitle: String = "Workspace"
-  val pageUrl: String = TestConfiguration.url("")
+  val pageUrl: String = TestConfiguration.url("sdec-stride-frontend")
 
 
 
