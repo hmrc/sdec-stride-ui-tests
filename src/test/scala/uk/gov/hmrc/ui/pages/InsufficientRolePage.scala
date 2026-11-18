@@ -28,8 +28,6 @@ object InsufficientRolePage extends BrowserDriver with BasePage with StaticUrl w
 
   private val errorMessageLocator: By = By.cssSelector("p.govuk-body")
 
-  def verifyUnauthorisedMessage(expectedText: String): Unit = {
+  def verifyUnauthorisedMessage(expectedText: String): Unit =
     assertTextOnPage(errorMessageLocator, expectedText)
-  }
-
 }

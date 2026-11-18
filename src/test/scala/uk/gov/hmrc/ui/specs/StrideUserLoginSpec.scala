@@ -19,8 +19,9 @@ package uk.gov.hmrc.ui.specs
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.prop.TableDrivenPropertyChecks.forAll
 import org.scalatest.prop.Tables.Table
-import uk.gov.hmrc.ui.pages.AuthLoginPage.{assertOnPage, navigateToPage}
 import uk.gov.hmrc.ui.pages.*
+import uk.gov.hmrc.ui.pages.AuthLoginPage.{assertOnPage, navigateToPage}
+import uk.gov.hmrc.ui.specs.tags.AcceptanceTests
 class StrideUserLoginSpec extends BaseSpec {
 
   private val pid       = "12345"
@@ -60,7 +61,7 @@ class StrideUserLoginSpec extends BaseSpec {
     )
 
     forAll(happyPathData) { (scenario, roles) =>
-      Scenario(scenario) {
+      Scenario(scenario, AcceptanceTests) {
         givenStrideUserEntersIdentityDetails()
 
         When(s"Stride user has a valid role $roles starting with SDEC_")
@@ -93,7 +94,7 @@ class StrideUserLoginSpec extends BaseSpec {
     )
 
     forAll(negativePathData) { (scenario, roles) =>
-      Scenario(scenario) {
+      Scenario(scenario, AcceptanceTests) {
         givenStrideUserEntersIdentityDetails()
 
         When(s"user $givenName has a valid role $roles not starting with SDEC_")

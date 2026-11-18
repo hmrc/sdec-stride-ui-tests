@@ -22,8 +22,6 @@ import org.scalatest.matchers.must.Matchers.mustBe
 import uk.gov.hmrc.selenium.component.PageObject
 import uk.gov.hmrc.selenium.webdriver.Driver
 import uk.gov.hmrc.ui.driver.BrowserDriver
-import uk.gov.hmrc.ui.pages.StrideUserLoginPage.driver
-
 import java.time.Duration
 import scala.jdk.CollectionConverters.*
 

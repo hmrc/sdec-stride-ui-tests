@@ -15,28 +15,25 @@
  */
 
 package uk.gov.hmrc.ui.pages
-
-import org.openqa.selenium.support.ui.ExpectedConditions
-
 trait CommonPage extends BasePage with StaticUrl with StaticTitle
 
 trait StaticTitle {
   this: BasePage =>
 
-  def pageTitle: String
+  def pageTitle:      String
   def pageErrorTitle: String = s"Error: $pageTitle"
 }
 
 trait DynamicTitle[A] {
   this: BasePage =>
 
-  def pageTitle(param: A): String
+  def pageTitle(param:      A): String
   def pageErrorTitle(param: A): String = s"Error: ${pageTitle(param)}"
 }
 
 trait StaticUrl {
   this: BasePage =>
 
-  def pageUrl: String
+  def pageUrl:    String
   def loadPage(): Unit = navigateTo(pageUrl)
 }
