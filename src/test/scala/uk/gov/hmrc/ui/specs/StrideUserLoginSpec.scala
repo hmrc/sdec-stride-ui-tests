@@ -47,16 +47,20 @@ class StrideUserLoginSpec extends BaseSpec {
     val happyPathData = Table(
       ("scenario", "roles"),
       (
-        s"Success : Stride user $givenName successfully navigates navigate to workspace with a single valid role that starts with SDEC_",
+        s"Success : Stride user $givenName successfully navigates to workspace with a single valid role that starts with SDEC_",
         "SDEC_CHB_Manager"
       ),
       (
-        s"Success : Stride user $givenName successfully navigates navigate to workspace with a multiple valid role that starts with SDEC_",
-        "SDEC_CHB_Manager,SDEC_VAT_User,SDEC_Auit_Senior"
+        s"Success : Stride user $givenName successfully navigates to workspace with a multiple valid role that starts with SDEC_",
+        "SDEC_CHB_Manager,SDEC_VAT_User,Audit_Senior"
       ),
       (
-        s"Success : Stride user $givenName successfully navigates navigate to workspace with a VAT user role that starts with SDEC_",
+        s"Success : Stride user $givenName successfully navigates to workspace with a VAT user role that starts with SDEC_",
         "sdec_vat_user"
+      ),
+      (
+        s"Failure : Stride user $givenName navigates to workspace page with valid multiple role segments",
+        "SDEC_VAT_User_Manager"
       )
     )
 
@@ -80,8 +84,8 @@ class StrideUserLoginSpec extends BaseSpec {
         "CHB_Manager"
       ),
       (
-        s"Failure : Stride user $givenName navigates to Insufficient Role page due to role exceeding expected segments",
-        "SDEC_VAT_User_Manager"
+        s"Failure : Stride user $givenName navigates to Insufficient Role page due to a role does not starts with SDEC_",
+        "VAT_User_Manager"
       ),
       (
         s"Failure : Stride user $givenName navigates to Insufficient Role page due to invalid prefix",
