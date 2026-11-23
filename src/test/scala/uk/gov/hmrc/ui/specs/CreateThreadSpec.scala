@@ -17,7 +17,8 @@
 package uk.gov.hmrc.ui.specs
 
 import org.scalatest.featurespec.AnyFeatureSpec
-import uk.gov.hmrc.ui.pages.{AuthLoginPage, CreateThreadPage}
+import uk.gov.hmrc.ui.pages.AuthLoginPage.navigateToPage
+import uk.gov.hmrc.ui.pages.{CreateThreadPage, StrideUserLoginPage}
 import uk.gov.hmrc.ui.specs.tags.AcceptanceTests
 
 class CreateThreadSpec extends BaseSpec {
@@ -26,7 +27,10 @@ class CreateThreadSpec extends BaseSpec {
     Scenario("Workspace page with Create Thread Button is visible and selectable", AcceptanceTests) {
 
       Given("Navigation to service page")
-      AuthLoginPage.navigateToServicePage()
+      navigateToPage(StrideUserLoginPage)
+      StrideUserLoginPage.enterIdentityDetails("12345", "TestGivenName", "TestsurName", "t@example.com")
+      StrideUserLoginPage.enterRole("SDEC_CHB_User")
+      StrideUserLoginPage.clickSubmitButton()
 
       When("""the User views Workspace Navigation page a "Create thread" button is displayed""")
       CreateThreadPage.getWorkspaceHeading           shouldBe "Workspace"
@@ -44,7 +48,10 @@ class CreateThreadSpec extends BaseSpec {
     Scenario("Recipient details page is visible and selectable", AcceptanceTests) {
 
       Given("Navigation to service page")
-      AuthLoginPage.navigateToServicePage()
+      navigateToPage(StrideUserLoginPage)
+      StrideUserLoginPage.enterIdentityDetails("12345", "TestGivenName", "TestsurName", "t@example.com")
+      StrideUserLoginPage.enterRole("SDEC_CHB_User")
+      StrideUserLoginPage.clickSubmitButton()
 
       When("the User views Workspace Navigation page a Create thread button is displayed")
       CreateThreadPage.getWorkspaceHeading           shouldBe "Workspace"
@@ -66,7 +73,10 @@ class CreateThreadSpec extends BaseSpec {
     Scenario("What do you want to do page is visible with Send Files selected", AcceptanceTests) {
 
       Given("Navigation to service page")
-      AuthLoginPage.navigateToServicePage()
+      navigateToPage(StrideUserLoginPage)
+      StrideUserLoginPage.enterIdentityDetails("12345", "TestGivenName", "TestsurName", "t@example.com")
+      StrideUserLoginPage.enterRole("SDEC_CHB_User")
+      StrideUserLoginPage.clickSubmitButton()
 
       And("the User views Workspace Navigation page a Create thread button is displayed")
       CreateThreadPage.getWorkspaceHeading           shouldBe "Workspace"
@@ -92,7 +102,10 @@ class CreateThreadSpec extends BaseSpec {
     Scenario("What do you want to do page is visible with Request Files selected", AcceptanceTests) {
 
       Given("Navigation to service page")
-      AuthLoginPage.navigateToServicePage()
+      navigateToPage(StrideUserLoginPage)
+      StrideUserLoginPage.enterIdentityDetails("12345", "TestGivenName", "TestsurName", "t@example.com")
+      StrideUserLoginPage.enterRole("SDEC_CHB_User")
+      StrideUserLoginPage.clickSubmitButton()
 
       And("the User views Workspace Navigation page a Create thread button is displayed")
       CreateThreadPage.getWorkspaceHeading           shouldBe "Workspace"
@@ -117,7 +130,10 @@ class CreateThreadSpec extends BaseSpec {
     Scenario("What do you want to do page is visible with Send & Request Files selected", AcceptanceTests) {
 
       Given("Navigation to service page")
-      AuthLoginPage.navigateToServicePage()
+      navigateToPage(StrideUserLoginPage)
+      StrideUserLoginPage.enterIdentityDetails("12345", "TestGivenName", "TestsurName", "t@example.com")
+      StrideUserLoginPage.enterRole("SDEC_CHB_User")
+      StrideUserLoginPage.clickSubmitButton()
 
       And("the User views Workspace Navigation page a Create thread button is displayed")
       CreateThreadPage.getWorkspaceHeading           shouldBe "Workspace"
@@ -142,7 +158,10 @@ class CreateThreadSpec extends BaseSpec {
     Scenario("the user navigates to what do you want to do page and clicks the back link ", AcceptanceTests) {
 
       Given("Navigation to service page")
-      AuthLoginPage.navigateToServicePage()
+      navigateToPage(StrideUserLoginPage)
+      StrideUserLoginPage.enterIdentityDetails("12345", "TestGivenName", "TestsurName", "t@example.com")
+      StrideUserLoginPage.enterRole("SDEC_CHB_User")
+      StrideUserLoginPage.clickSubmitButton()
 
       And("the User views Workspace Navigation page a Create thread button is displayed")
       CreateThreadPage.getWorkspaceHeading           shouldBe "Workspace"
@@ -168,7 +187,10 @@ class CreateThreadSpec extends BaseSpec {
     Scenario("User clicks Submit button in what do you want to do page without selecting options ", AcceptanceTests) {
 
       Given("Navigation to service page")
-      AuthLoginPage.navigateToServicePage()
+      navigateToPage(StrideUserLoginPage)
+      StrideUserLoginPage.enterIdentityDetails("12345", "TestGivenName", "TestsurName", "t@example.com")
+      StrideUserLoginPage.enterRole("SDEC_CHB_User")
+      StrideUserLoginPage.clickSubmitButton()
 
       And("the User views Workspace Navigation page a Create thread button is displayed")
       CreateThreadPage.getWorkspaceHeading           shouldBe "Workspace"
