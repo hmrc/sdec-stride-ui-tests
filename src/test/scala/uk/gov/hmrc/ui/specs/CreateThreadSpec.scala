@@ -287,6 +287,14 @@ class CreateThreadSpec extends BaseSpec {
       RecipientDetailsPage.getNINumberErrorMessage should include(
         "Enter a National Insurance number in the correct format"
       )
+
+      And(
+        "the User provides correct details, clicks on Continue button and navigates to next page"
+      )
+      RecipientDetailsPage.enterRecipientDetails("TestFirst", "TestLast", "hmrc@test.com", "07700900982", "AA123456B")
+      RecipientDetailsPage.selectNoForExistingCase()
+      RecipientDetailsPage.clickContinueButton()
+      CreateThreadPage.getWhatDoYouWantToDoHeading shouldBe "What do you want to do?"
     }
 
   }
