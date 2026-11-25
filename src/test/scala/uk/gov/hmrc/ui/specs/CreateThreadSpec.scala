@@ -94,6 +94,7 @@ class CreateThreadSpec extends BaseSpec {
       RecipientDetailsPage.enterRecipientDetails("TestFirst", "TestLast", "hmrc@test.com", "07700900982", "AA123456B")
       RecipientDetailsPage.selectNoForExistingCase()
       RecipientDetailsPage.clickContinueButton()
+      CreateThreadPage.getWhatDoYouWantToDoHeading shouldBe "What do you want to do?"
 
       And("the user clicks on continue button but does not navigate to the next page")
       CreateThreadPage.clickSubmitButton()
@@ -124,6 +125,7 @@ class CreateThreadSpec extends BaseSpec {
       RecipientDetailsPage.enterRecipientDetails("TestFirst", "TestLast", "hmrc@test.com", "07700900982", "AA123456B")
       RecipientDetailsPage.selectNoForExistingCase()
       RecipientDetailsPage.clickContinueButton()
+      CreateThreadPage.getWhatDoYouWantToDoHeading shouldBe "What do you want to do?"
 
       And("the user clicks on continue button but does not navigate to the next page")
       CreateThreadPage.clickSubmitButton()
@@ -153,6 +155,7 @@ class CreateThreadSpec extends BaseSpec {
       RecipientDetailsPage.enterRecipientDetails("TestFirst", "TestLast", "hmrc@test.com", "07700900982", "AA123456B")
       RecipientDetailsPage.selectNoForExistingCase()
       RecipientDetailsPage.clickContinueButton()
+      CreateThreadPage.getWhatDoYouWantToDoHeading shouldBe "What do you want to do?"
 
       And("the user clicks on continue button but does not navigate to the next page")
       CreateThreadPage.clickSubmitButton()
@@ -213,6 +216,7 @@ class CreateThreadSpec extends BaseSpec {
       RecipientDetailsPage.enterRecipientDetails("TestFirst", "TestLast", "hmrc@test.com", "07700900982", "AA123456B")
       RecipientDetailsPage.selectNoForExistingCase()
       RecipientDetailsPage.clickContinueButton()
+      CreateThreadPage.getWhatDoYouWantToDoHeading shouldBe "What do you want to do?"
 
       Then("the User clicks on submit button without selecting the options ")
       CreateThreadPage.clickSubmitButton()
@@ -222,7 +226,7 @@ class CreateThreadSpec extends BaseSpec {
 
     }
 
-    Scenario("User navigates to Recipient details page and validates error messages", AcceptanceTests) {
+    Scenario("Recipient details form validation", AcceptanceTests) {
 
       Given("Navigation to service page")
       navigateToPage(StrideUserLoginPage)

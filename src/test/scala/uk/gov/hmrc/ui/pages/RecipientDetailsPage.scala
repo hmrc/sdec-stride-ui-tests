@@ -20,19 +20,19 @@ import org.openqa.selenium.By
 
 object RecipientDetailsPage extends BasePage {
 
-  val continueButtonLocator:      By = By.cssSelector("#main-content button")
-  val firstNameTextBoxLocator:    By = By.id("firstName")
-  val lastNameTextBoxLocator:     By = By.id("lastName")
-  val emailTextBoxLocator:        By = By.id("email")
-  val mobileNumberTextBoxLocator: By = By.id("phoneNumber")
-  val niNumberTextBoxLocator:     By = By.id("nationalInsuranceNumber")
-  val existingCaseYesLocator:     By = By.id("hasRelatedCase")
-  val existingCaseNoLocator:      By = By.id("hasRelatedCase-no")
-  val firstNameErrorLocator:      By = By.id("firstName-error")
-  val lastNameErrorLocator:       By = By.id("lastName-error")
-  val emailErrorLocator:          By = By.id("email-error")
-  val mobileNumberErrorLocator:   By = By.id("phoneNumber-error")
-  val niNumberErrorLocator:       By = By.id("nationalInsuranceNumber-error")
+  val continueButtonLocator:            By = By.cssSelector("#main-content button")
+  val firstNameTextBoxLocator:          By = By.id("firstName")
+  val lastNameTextBoxLocator:           By = By.id("lastName")
+  val emailTextBoxLocator:              By = By.id("email")
+  val mobileNumberTextBoxLocator:       By = By.id("phoneNumber")
+  val niNumberTextBoxLocator:           By = By.id("nationalInsuranceNumber")
+  val hasRelatedCaseRadioButtonLocator: By = By.id("hasRelatedCase")
+  val noRelatedCaseRadioButtonLocator:  By = By.id("hasRelatedCase-no")
+  val firstNameErrorLabelLocator:       By = By.id("firstName-error")
+  val lastNameErrorLabelLocator:        By = By.id("lastName-error")
+  val emailErrorLabelLocator:           By = By.id("email-error")
+  val mobileNumberErrorLabelLocator:    By = By.id("phoneNumber-error")
+  val niNumberErrorLabelLocator:        By = By.id("nationalInsuranceNumber-error")
 
   def clickContinueButton(): Unit = click(continueButtonLocator)
 
@@ -50,12 +50,12 @@ object RecipientDetailsPage extends BasePage {
     enterText(niNumberTextBoxLocator, niNumber)
   }
 
-  def selectYesForExistingCase():  Unit   = clickRadioButton(existingCaseYesLocator)
-  def selectNoForExistingCase():   Unit   = clickRadioButton(existingCaseNoLocator)
-  def getFirstNameErrorMessage:    String = getText(firstNameErrorLocator)
-  def getLastNameErrorMessage:     String = getText(lastNameErrorLocator)
-  def getEmailErrorMessage:        String = getText(emailErrorLocator)
-  def getMobileNumberErrorMessage: String = getText(mobileNumberErrorLocator)
-  def getNINumberErrorMessage:     String = getText(niNumberErrorLocator)
+  def selectYesForExistingCase():  Unit   = clickRadioButton(hasRelatedCaseRadioButtonLocator)
+  def selectNoForExistingCase():   Unit   = clickRadioButton(noRelatedCaseRadioButtonLocator)
+  def getFirstNameErrorMessage:    String = getText(firstNameErrorLabelLocator)
+  def getLastNameErrorMessage:     String = getText(lastNameErrorLabelLocator)
+  def getEmailErrorMessage:        String = getText(emailErrorLabelLocator)
+  def getMobileNumberErrorMessage: String = getText(mobileNumberErrorLabelLocator)
+  def getNINumberErrorMessage:     String = getText(niNumberErrorLabelLocator)
 
 }
