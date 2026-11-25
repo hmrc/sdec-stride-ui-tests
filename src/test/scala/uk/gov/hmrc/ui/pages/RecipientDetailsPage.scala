@@ -17,7 +17,6 @@
 package uk.gov.hmrc.ui.pages
 
 import org.openqa.selenium.By
-import org.openqa.selenium.support.ui.ExpectedConditions
 
 object RecipientDetailsPage extends BasePage {
 
@@ -37,11 +36,6 @@ object RecipientDetailsPage extends BasePage {
 
   def clickContinueButton(): Unit = click(continueButtonLocator)
 
-  def addText(locator: By, value: String): Unit = {
-    fluentWait.until(ExpectedConditions.visibilityOfElementLocated(firstNameTextBoxLocator))
-    sendKeys(firstNameTextBoxLocator, value)
-  }
-
   def enterRecipientDetails(
     firstName:    String,
     lastName:     String,
@@ -56,8 +50,8 @@ object RecipientDetailsPage extends BasePage {
     enterText(niNumberTextBoxLocator, niNumber)
   }
 
-  def selectYesForExistingCase():  Unit   = selectRadioButton(existingCaseYesLocator)
-  def selectNoForExistingCase():   Unit   = selectRadioButton(existingCaseNoLocator)
+  def selectYesForExistingCase():  Unit   = clickRadioButton(existingCaseYesLocator)
+  def selectNoForExistingCase():   Unit   = clickRadioButton(existingCaseNoLocator)
   def getFirstNameErrorMessage:    String = getText(firstNameErrorLocator)
   def getLastNameErrorMessage:     String = getText(lastNameErrorLocator)
   def getEmailErrorMessage:        String = getText(emailErrorLocator)

@@ -139,20 +139,4 @@ trait BasePage extends PageObject with BrowserDriver {
     driver.manage().deleteAllCookies()
     Driver.instance.get(page.pageUrl)
 
-  def selectRadioButton(locator: By): Unit = {
-    val radioElement = fluentWait.until(
-      ExpectedConditions.presenceOfElementLocated(locator)
-    )
-
-    val jsExecutor = driver.asInstanceOf[JavascriptExecutor]
-    jsExecutor.executeScript("arguments[0].scrollIntoView(true);", radioElement)
-
-    try
-      radioElement.click()
-    catch {
-      case _: Exception =>
-        jsExecutor.executeScript("arguments[0].click();", radioElement)
-    }
-  }
-
 }
