@@ -15,6 +15,7 @@
  */
 
 package uk.gov.hmrc.ui.pages
+import org.openqa.selenium.By
 import uk.gov.hmrc.ui.conf.TestConfiguration
 import uk.gov.hmrc.ui.driver.BrowserDriver
 
@@ -22,8 +23,25 @@ object AuthLoginPage extends BrowserDriver with BasePage {
 
   val url: String = TestConfiguration.url("sdec-stride-frontend")
 
-  def navigateToServicePage(): Unit = {
-    driver.manage().deleteAllCookies()
-    navigateTo(url)
+  val pidLocator:                       By = By.id("pid")
+  val givenNameLocator:                 By = By.id("usersGivenName")
+  val surNameLocator:                   By = By.id("usersSurname")
+  val emailAddressLocator:              By = By.id("emailAddress")
+  val successAuthenticationRadioButton: By = By.id("success")
+  val failureAuthenticationRadioButton: By = By.id("failure")
+  val validSAMLSignatureRadioButton:    By = By.id("valid")
+  val noneSAMLSignatureRadioButton:     By = By.id("off")
+  val roleLocator:                      By = By.id("roles")
+  val submitButtonLocator:              By = By.id("continue-button")
+
+  def navigateToStrideAuthPage(): Unit = navigateTo(url)
+  def enterStrideLoginDetails(pid: String, givenName: String, surName: String, email: String, roles: String): Unit = {
+    sendKeys(pidLocator, pid)
+    sendKeys(givenNameLocator, givenName)
+    sendKeys(surNameLocator, surName)
+    sendKeys(emailAddressLocator, email)
+    sendKeys(roleLocator, roles)
   }
+  def clickSubmitButton(): Unit = click(submitButtonLocator)
+
 }

@@ -43,11 +43,11 @@ object RecipientDetailsPage extends BasePage {
     mobileNumber: String,
     niNumber:     String
   ): Unit = {
-    enterText(firstNameTextBoxLocator, firstName)
-    enterText(lastNameTextBoxLocator, lastName)
-    enterText(emailTextBoxLocator, email)
-    enterText(mobileNumberTextBoxLocator, mobileNumber)
-    enterText(niNumberTextBoxLocator, niNumber)
+    sendKeys(firstNameTextBoxLocator, firstName)
+    sendKeys(lastNameTextBoxLocator, lastName)
+    sendKeys(emailTextBoxLocator, email)
+    sendKeys(mobileNumberTextBoxLocator, mobileNumber)
+    sendKeys(niNumberTextBoxLocator, niNumber)
   }
 
   def selectYesForExistingCase():  Unit   = clickRadioButton(hasRelatedCaseRadioButtonLocator)
