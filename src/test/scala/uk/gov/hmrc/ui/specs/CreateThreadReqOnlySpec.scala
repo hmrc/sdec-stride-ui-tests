@@ -19,13 +19,13 @@ package uk.gov.hmrc.ui.specs
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.prop.TableDrivenPropertyChecks
 import uk.gov.hmrc.ui.pages.{AuthLoginPage, CreateThreadPage, RecipientDetailsPage, ThreadDetailsPage}
-import uk.gov.hmrc.ui.specs.tags.SoloTests
+import uk.gov.hmrc.ui.specs.tags.AcceptanceTests
 import uk.gov.hmrc.ui.testData.{RecipientDetailsData, StrideUserLoginData}
 
 class CreateThreadReqOnlySpec extends BaseSpec with TableDrivenPropertyChecks {
   Feature("Internal User Journey - Create New Thread with Request only file Journey") {
 
-    Scenario("CreateThreadReq-1:The Stride User Navigates to Workspace Page for creating new thread", SoloTests) {
+    Scenario("CreateThreadReq-1:The Stride User Navigates to Workspace Page for creating new thread", AcceptanceTests) {
       forAll(StrideUserLoginData.strideUserLoginDetails) { (pid, givenName, surName, email, roles) =>
         Given("Child Benefits User navigates to Stride Authentication Page with the credentials ")
         AuthLoginPage.navigateToStrideAuthPage()
@@ -46,7 +46,7 @@ class CreateThreadReqOnlySpec extends BaseSpec with TableDrivenPropertyChecks {
 
     Scenario(
       "CreateThreadReq-2:The user navigates to What do you want to do page with Request Files selected with No Existing Case",
-      SoloTests
+      AcceptanceTests
     ) {
 
       forAll(StrideUserLoginData.strideUserLoginDetails) { (pid, givenName, surName, email, roles) =>
@@ -105,8 +105,8 @@ class CreateThreadReqOnlySpec extends BaseSpec with TableDrivenPropertyChecks {
     }
 
     Scenario(
-      "CreateThreadReq-2:The user navigates to What do you want to do page with Request Files selected with Yes Existing Case",
-      SoloTests
+      "CreateThreadReq-3:The user navigates to What do you want to do page with Request Files selected with Yes Existing Case",
+      AcceptanceTests
     ) {
 
       forAll(StrideUserLoginData.strideUserLoginDetails) { (pid, givenName, surName, email, roles) =>
