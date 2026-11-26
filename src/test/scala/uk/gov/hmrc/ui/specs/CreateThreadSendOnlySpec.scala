@@ -20,7 +20,7 @@ import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.prop.TableDrivenPropertyChecks
 import uk.gov.hmrc.ui.pages.{AuthLoginPage, CreateThreadPage, RecipientDetailsPage}
 import uk.gov.hmrc.ui.specs.tags.AcceptanceTests
-import uk.gov.hmrc.ui.testData.StrideUserLoginData
+import uk.gov.hmrc.ui.testData.{RecipientDetailsData, StrideUserLoginData}
 
 class CreateThreadSendOnlySpec extends BaseSpec with TableDrivenPropertyChecks {
   Feature("Internal User Journey - Create New Thread with Send only file Journey") {
@@ -68,16 +68,18 @@ class CreateThreadSendOnlySpec extends BaseSpec with TableDrivenPropertyChecks {
         CreateThreadPage.getRecipientDetailsHeadingText shouldBe "Recipient details"
 
         Then("the User clicks on continue button and navigates to What do you want page ")
-        RecipientDetailsPage.enterRecipientDetails("TestFirst", "TestLast", "hmrc@test.com", "07700900982", "AA123456B")
-        RecipientDetailsPage.selectNoForExistingCase()
-        RecipientDetailsPage.clickContinueButton()
-        CreateThreadPage.getWhatDoYouWantToDoHeading shouldBe "What do you want to do?"
+        RecipientDetailsData.usersWithCorrectLoginDetails foreach {
+          case (firstName, lastName, recipientEmail, mobileNumber, niNumber) =>
+            RecipientDetailsPage.enterRecipientDetails(firstName, lastName, recipientEmail, mobileNumber, niNumber)
+            RecipientDetailsPage.selectNoForExistingCase()
+            RecipientDetailsPage.clickContinueButton()
+            CreateThreadPage.getWhatDoYouWantToDoHeading shouldBe "What do you want to do?"
 
-        And("the user clicks on continue button but does not navigate to the next page")
-        CreateThreadPage.clickSubmitButton()
+            And("the user clicks on continue button but does not navigate to the next page")
+            CreateThreadPage.clickSubmitButton()
 
+        }
       }
     }
-
   }
 }

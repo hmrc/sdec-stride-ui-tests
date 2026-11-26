@@ -20,12 +20,15 @@ import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.prop.TableDrivenPropertyChecks
 import uk.gov.hmrc.ui.pages.{AuthLoginPage, CreateThreadPage, RecipientDetailsPage}
 import uk.gov.hmrc.ui.specs.tags.AcceptanceTests
-import uk.gov.hmrc.ui.testData.StrideUserLoginData
+import uk.gov.hmrc.ui.testData.{RecipientDetailsData, StrideUserLoginData}
 
 class CreateThreadSendAndReqFileSpec extends BaseSpec with TableDrivenPropertyChecks {
   Feature("Internal User Journey - Create New Thread with Send and Request file Journey") {
 
-    Scenario("The Stride User Navigates to Workspace Page for creating new thread", AcceptanceTests) {
+    Scenario(
+      "The Stride User Navigates to Workspace Page for creating new thread and enters RecipentDetails",
+      AcceptanceTests
+    ) {
       forAll(StrideUserLoginData.strideUserLoginDetails) { (pid, givenName, surName, email, roles) =>
         Given("Child Benefits User navigates to Stride Authentication Page with the credentials ")
         AuthLoginPage.navigateToStrideAuthPage()
@@ -42,39 +45,17 @@ class CreateThreadSendAndReqFileSpec extends BaseSpec with TableDrivenPropertyCh
         CreateThreadPage.getRecipientDetailsHeadingText shouldBe "Recipient details"
 
         Then("the User clicks on continue button and navigates to next page")
-        RecipientDetailsPage.clickContinueButton()
+        RecipientDetailsData.usersWithCorrectLoginDetails foreach {
+          case (firstName, lastName, recipientEmail, mobileNumber, niNumber) =>
+            RecipientDetailsPage.enterRecipientDetails(firstName, lastName, recipientEmail, mobileNumber, niNumber)
+            RecipientDetailsPage.clickContinueButton()
+            RecipientDetailsPage.selectNoForExistingCase()
+            RecipientDetailsPage.clickContinueButton()
+            CreateThreadPage.getWhatDoYouWantToDoHeading shouldBe "What do you want to do?"
 
-      }
-    }
-
-    Scenario("The user navigates to What do you want to do page  with Send & Request Files selected", AcceptanceTests) {
-
-      forAll(StrideUserLoginData.strideUserLoginDetails) { (pid, givenName, surName, email, roles) =>
-        Given("Child Benefits User navigates to Stride Authentication Page with the credentials ")
-        AuthLoginPage.navigateToStrideAuthPage()
-        AuthLoginPage.enterStrideLoginDetails(pid, givenName, surName, email, roles)
-        AuthLoginPage.clickSubmitButton()
-
-        And("the User views Workspace Navigation page a Create thread button is displayed")
-        CreateThreadPage.getWorkspaceHeading           shouldBe "Workspace"
-        CreateThreadPage.isCreateThreadButtonDisplayed shouldBe true
-
-        And("the button must be selectable")
-        CreateThreadPage.isCreateThreadButtonEnabled shouldBe true
-        CreateThreadPage.getCreateThreadButtonText   shouldBe "Create new thread"
-
-        When("the User clicks on the create thread button and the User navigates to the Recipient details pag")
-        CreateThreadPage.clickCreateThreadButton()
-        CreateThreadPage.getRecipientDetailsHeadingText shouldBe "Recipient details"
-
-        Then("the User clicks on continue button and navigates to What do you want page ")
-        RecipientDetailsPage.enterRecipientDetails("TestFirst", "TestLast", "hmrc@test.com", "07700900982", "AA123456B")
-        RecipientDetailsPage.selectNoForExistingCase()
-        RecipientDetailsPage.clickContinueButton()
-        CreateThreadPage.getWhatDoYouWantToDoHeading shouldBe "What do you want to do?"
-
-        And("the user clicks on continue button but does not navigate to the next page")
-        CreateThreadPage.clickSubmitButton()
+            And("the user clicks on continue button but does not navigate to the next page")
+            CreateThreadPage.clickSubmitButton()
+        }
       }
     }
 

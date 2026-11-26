@@ -31,9 +31,8 @@ object RecipientDetailsData {
     ("TestFirst", "TestLast", "test.com", "07700811982", "AA12345")
   )
 
-  // Helper: returns rows where the given column exactly equals the value
   private def rowsWhere(column: Int, value: String): Seq[(String, String, String, String, String)] =
-    recipientDetailsData.toSeq.collect {
+    recipientDetailsData.collect {
       case row if row.productElement(column) == value =>
         (
           row.productElement(0).toString,
@@ -44,7 +43,6 @@ object RecipientDetailsData {
         )
     }
 
-  // Plain Seq so the spec can use .foreach { case (...) => ... }
   val usersWithCorrectLoginDetails: Seq[(String, String, String, String, String)] =
     rowsWhere(3, "07730900982")
 
@@ -63,11 +61,9 @@ object RecipientDetailsData {
   val usersWithWrongNINumber: Seq[(String, String, String, String, String)] =
     rowsWhere(3, "07700811982")
 
-  // Matches on the NI number column (index 4), not the mobile number
   def getUsersWithNiNumber(niNumber: String): Seq[(String, String, String, String, String)] =
     rowsWhere(4, niNumber)
 
-  // Reads every row of the table, in order
   def getAllRecipients: List[(String, String, String, String, String)] =
     recipientDetailsData.toList
 

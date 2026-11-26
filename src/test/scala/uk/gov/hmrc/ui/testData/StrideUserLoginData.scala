@@ -23,9 +23,7 @@ object StrideUserLoginData {
   val strideUserLoginDetails: TableFor5[String, String, String, String, String] = Table(
     ("pid", "givenName", "surName", "email", "roles"),
     ("12345", "TestGivenName", "TestsurName", "t@example.com", "SDEC_CHB_User")
-    
   )
- 
 
   val usersWithChildBenefitsManagerRole: TableFor5[String, String, String, String, String] =
     strideUserLoginDetails.filter { row =>

@@ -33,6 +33,7 @@ object RecipientDetailsPage extends BasePage {
   val emailErrorLabelLocator:           By = By.id("email-error")
   val mobileNumberErrorLabelLocator:    By = By.id("phoneNumber-error")
   val niNumberErrorLabelLocator:        By = By.id("nationalInsuranceNumber-error")
+  val caseReferenceNumberLocator:       By = By.id("caseReferenceNumber")
 
   def clickContinueButton(): Unit = click(continueButtonLocator)
 
@@ -50,12 +51,12 @@ object RecipientDetailsPage extends BasePage {
     sendKeys(niNumberTextBoxLocator, niNumber)
   }
 
-  def selectYesForExistingCase():  Unit   = clickRadioButton(hasRelatedCaseRadioButtonLocator)
-  def selectNoForExistingCase():   Unit   = clickRadioButton(noRelatedCaseRadioButtonLocator)
-  def getFirstNameErrorMessage:    String = getText(firstNameErrorLabelLocator)
-  def getLastNameErrorMessage:     String = getText(lastNameErrorLabelLocator)
-  def getEmailErrorMessage:        String = getText(emailErrorLabelLocator)
-  def getMobileNumberErrorMessage: String = getText(mobileNumberErrorLabelLocator)
-  def getNINumberErrorMessage:     String = getText(niNumberErrorLabelLocator)
-
+  def selectYesForExistingCase():        Unit   = clickRadioButton(hasRelatedCaseRadioButtonLocator)
+  def selectNoForExistingCase():         Unit   = clickRadioButton(noRelatedCaseRadioButtonLocator)
+  def getFirstNameErrorMessage:          String = getText(firstNameErrorLabelLocator)
+  def getLastNameErrorMessage:           String = getText(lastNameErrorLabelLocator)
+  def getEmailErrorMessage:              String = getText(emailErrorLabelLocator)
+  def getMobileNumberErrorMessage:       String = getText(mobileNumberErrorLabelLocator)
+  def getNINumberErrorMessage:           String = getText(niNumberErrorLabelLocator)
+  def enterCaseRefNo(caseRefNo: String): Unit   = sendKeys(caseReferenceNumberLocator, caseRefNo)
 }
