@@ -18,13 +18,11 @@ package uk.gov.hmrc.ui.pages
 
 import org.openqa.selenium.support.ui.{ExpectedConditions, FluentWait, Wait}
 import org.openqa.selenium.{By, JavascriptExecutor, WebDriver, WebElement}
-import org.scalatest.matchers.must.Matchers.mustBe
 import uk.gov.hmrc.selenium.component.PageObject
 import uk.gov.hmrc.selenium.webdriver.Driver
 import uk.gov.hmrc.ui.driver.BrowserDriver
 
 import java.time.Duration
-import java.util.regex.Pattern
 import scala.jdk.CollectionConverters.*
 
 trait BasePage extends PageObject with BrowserDriver {
@@ -49,19 +47,6 @@ trait BasePage extends PageObject with BrowserDriver {
     driver.findElements(locator).asScala.nonEmpty &&
       getElement(locator).isEnabled
 
-  def assertLocatorPresent(locator: By): Unit = {
-    val elements = Driver.instance.findElements(locator).asScala
-    require(
-      elements.nonEmpty,
-      s"Expected element with locator [$locator] to be present, but none was found"
-    )
-  }
-
-  def clear(locator: By): Unit = {
-    val element = fluentWait.until(ExpectedConditions.elementToBeClickable(locator))
-    element.clear()
-  }
-
   override def click(locator: By): Unit = {
     val element = fluentWait.until(ExpectedConditions.elementToBeClickable(locator))
     element.click()
@@ -85,58 +70,5 @@ trait BasePage extends PageObject with BrowserDriver {
     }
 
   }
-
-  def clickElement(locator: By): Unit =
-    getElementIfClickable(locator).click()
-
-  private def getElementIfClickable(locator: By): WebElement =
-    fluentWait.until(ExpectedConditions.elementToBeClickable(locator))
-
-  private def getElementIfVisible(locator: By): WebElement =
-    fluentWait.until(ExpectedConditions.visibilityOfElementLocated(locator))
-
-  def clearField(locator: By): Unit =
-    getElementIfVisible(locator).clear()
-
-  def assertOnPage(page: BasePage with StaticUrl with StaticTitle): Unit =
-    assertOnPage(page, None)
-
-  def enterText(locator: By, value: String)(implicit driver: WebDriver): Unit = {
-    val element = driver.findElement(locator)
-    element.clear()
-    element.sendKeys(value)
-  }
-
-  private def assertOnPage(expectedPageUrl: String, expectedTitle: String): Unit = {
-    assertUrl(expectedPageUrl)
-    assertPageTitle(expectedTitle)
-  }
-
-  def assertUrl(url: String): Unit =
-    fluentWait.until(ExpectedConditions.urlMatches(s"^${Pattern.quote(url)}.*"))
-
-  def assertOnUrl(url: String, title: String): Unit =
-    assertOnPage(url, title)
-
-  def assertPageTitle(expectedTitle: String): Unit =
-    fluentWait.until(ExpectedConditions.titleIs(expectedTitle))
-
-  def assertTextOnPage(locator: By, text: String): Unit =
-    getElementIfVisible(locator).getText mustBe text
-
-  def assertTextOnPage(element: WebElement, text: String): Unit =
-    element.getText mustBe text
-
-  private def assertOnPage(page: BasePage with StaticUrl with StaticTitle, titleOverride: Option[String]): Unit = {
-    val expectedTitle = titleOverride.getOrElse(page.pageTitle)
-    assertOnPage(page, expectedTitle)
-  }
-
-  def assertOnPage(page: BasePage with StaticUrl, expectedTitle: String): Unit =
-    assertOnPage(page.pageUrl, expectedTitle)
-
-  def navigateToPage(page: BasePage & StaticUrl): Unit =
-    driver.manage().deleteAllCookies()
-    Driver.instance.get(page.pageUrl)
 
 }
